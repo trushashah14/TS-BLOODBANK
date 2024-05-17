@@ -4,7 +4,8 @@ import { GetCurrentUser } from "../apicalls/users";
 import { useNavigate } from "react-router-dom";
 import { getLoggedInUserName } from "../utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { SetCurrentUser, SetLoading } from "../redux/slices";  // Updated for brevity
+import { SetCurrentUser } from "../redux/usersSlice";
+import { SetLoading } from "../redux/loadersSlice";  // Updated for brevity
 
 function ProtectedPage({ children }) {
   // Access state from Redux store
@@ -47,7 +48,32 @@ function ProtectedPage({ children }) {
       <div>
         {/* Header with user information and logout button */}
         <div className="flex justify-between items-center bg-primary text-white px-5 py-3 mx-5 rounded-b">
-          {/* ... (existing code for header) */}
+        <div onClick={() => navigate("/")} className="cursor-pointer">
+            <h1 className="text-2xl">TS BLOODBANK</h1>
+            <span className="text-xs">
+              {currentUser.userType.toUpperCase()}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1">
+            <i class="ri-shield-user-line"></i>
+            <div className="flex flex-col">
+              <span
+                className="mr-5 text-md  cursor-pointer"
+                onClick={() => navigate("/profile")}
+              >
+                {getLoggedInUserName(currentUser).toUpperCase()}
+              </span>
+            </div>
+
+            <i
+              className="ri-logout-circle-r-line ml-5 cursor-pointer"
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/login");
+              }}
+            ></i>
+          </div>
         </div>
 
         {/* Protected content area for authenticated users */}

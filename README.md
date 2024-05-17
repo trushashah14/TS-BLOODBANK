@@ -66,5 +66,6 @@ npm start  # or yarn start
 
 
 ### Live Demo:
-The live demo of the deployed application can be accessed through the following link
-[LIVE_DEMO_URL](https://ts-bloodbank-1.onrender.com/)
+The live demo of the deployed application can be accessed through the following link:
+
+[Live Demo URL](https://ts-bloodbank-1.onrender.com/)

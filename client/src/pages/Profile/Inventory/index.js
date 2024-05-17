@@ -70,7 +70,7 @@ function Inventory() {
   };
 
   // Fetch data on component mount
-  useEffect(() => {
+  React.useEffect(() => {
     getData();
   }, []);
 

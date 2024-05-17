@@ -56,29 +56,35 @@ function Home() {
         <>
           {/* Blood Group Inventory Summary for Organizations */}
           <div className="grid grid-cols-4 gap-5 mb-5 mt-2">
-            {bloodGroupsData.map((bloodGroup, index) => (
-              <div
-                key={bloodGroup._id} // Add key prop for performance
-                className={`p-5 flex justify-between text-white rounded items-center`}
-                style={{ backgroundColor: colours[index] }}
-              >
-                <h1 className="text-5xl uppercase">{bloodGroup.bloodGroup}</h1>
-                <div className="flex flex-col justify-between gap-2">
-                  <div className="flex justify-between gap-5">
-                    <span>Total In</span>
-                    <span>{bloodGroup.totalIn} ML</span>
-                  </div>
-                  <div className="flex justify-between gap-5">
-                    <span>Total Out</span>
-                    <span>{bloodGroup.totalOut} ML</span>
-                  </div>
-                  <div className="flex justify-between gap-5">
-                    <span>Available</span>
-                    <span>{bloodGroup.available} ML</span>
+          {bloodGroupsData.map((bloodGroup, index) => {
+              const color = colours[index];
+              return (
+                <div
+                  className={`p-5 flex justify-between text-white rounded items-center`}
+                  style={{ backgroundColor: color }}
+                >
+                  <h1 className="text-5xl uppercase">
+                    {bloodGroup.bloodGroup}
+                  </h1>
+
+                  <div className="flex flex-col justify-between gap-2">
+                    <div className="flex justify-between gap-5">
+                      <span>Total In</span>
+                      <span>{bloodGroup.totalIn} ML</span>
+                    </div>
+                    <div className="flex justify-between gap-5">
+                      <span>Total Out</span>
+                      <span>{bloodGroup.totalOut} ML</span>
+                    </div>
+
+                    <div className="flex justify-between 5">
+                      <span>Available</span>
+                      <span>{bloodGroup.available} ML</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Recent Inventory for Organizations */}
