@@ -49,7 +49,7 @@ function ProtectedPage({ children }) {
         {/* Header with user information and logout button */}
         <div className="flex justify-between items-center bg-primary text-white px-5 py-3 mx-5 rounded-b">
         <div onClick={() => navigate("/")} className="cursor-pointer">
-            <h1 className="text-2xl">TS BLOODBANK</h1>
+            <h1 className="lg:text-2xl md:text-xl sm:text-xl text-sm ">TS BLOODBANK</h1>
             <span className="text-xs">
               {currentUser.userType.toUpperCase()}
             </span>
@@ -59,7 +59,7 @@ function ProtectedPage({ children }) {
             <i class="ri-shield-user-line"></i>
             <div className="flex flex-col">
               <span
-                className="mr-5 text-md  cursor-pointer"
+                className="mr-5 lg:text-md  md:text-sm text-xs cursor-pointer"
                 onClick={() => navigate("/profile")}
               >
                 {getLoggedInUserName(currentUser).toUpperCase()}
