@@ -5,11 +5,17 @@ import { getDateFormat } from "../utils/helpers";
 import { SetLoading } from "../redux/loadersSlice";
 import { Table, message } from "antd";
 
-function InvetoryTable({ filters, userType, limit }) {
+function InventoryTable({ filters, userType, limit }) {
+  // State for inventory data and table open/closed state
   const [data, setData] = React.useState([]);
   const [open, setOpen] = React.useState(false);
+
+  // Dispatch function for Redux actions
   const dispatch = useDispatch();
+
+  // Table columns with formatting for display
   const columns = [
+    // Inventory Type, Blood Group, Quantity, Reference, Date columns
     {
       title: "Inventory Type",
       dataIndex: "inventoryType",
@@ -57,6 +63,7 @@ function InvetoryTable({ filters, userType, limit }) {
     columns[3].title = userType === "hospital" ? "Taken Date" : "Donated Date";
   }
 
+  // Fetch inventory data with filters and handle loading/errors
   const getData = async () => {
     try {
       dispatch(SetLoading(true));
@@ -73,6 +80,7 @@ function InvetoryTable({ filters, userType, limit }) {
     }
   };
 
+  // Fetch data on component mount
   React.useEffect(() => {
     getData();
   }, []);
@@ -83,4 +91,4 @@ function InvetoryTable({ filters, userType, limit }) {
   );
 }
 
-export default InvetoryTable;
+export default InventoryTable;

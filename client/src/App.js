@@ -9,18 +9,21 @@ import { useSelector } from "react-redux";
 import Spinner from "./components/Spinner";
 
 function App() {
+  // Access loading state from Redux store
   const { loading } = useSelector((state) => state.loaders);
 
   return (
     <div>
+      {/* Conditionally render Spinner component while loading */}
       {loading && <Spinner />}
       <BrowserRouter>
         <Routes>
+          {/* Protected routes for authenticated users */}
           <Route
             path="/"
             element={
               <ProtectedPage>
-                <Home />
+                <Home /> {/* Render Home page inside ProtectedPage */}
               </ProtectedPage>
             }
           />
@@ -28,12 +31,14 @@ function App() {
             path="/profile"
             element={
               <ProtectedPage>
-                <Profile />
+                <Profile /> {/* Render Profile page inside ProtectedPage */}
               </ProtectedPage>
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+
+          {/* Public routes accessible to all users */}
+          <Route path="/login" element={<Login />} /> {/* Login page */}
+          <Route path="/register" element={<Register />} /> {/* Register page */}
         </Routes>
       </BrowserRouter>
     </div>

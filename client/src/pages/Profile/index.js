@@ -8,20 +8,23 @@ import Organizations from "./Organizations";
 import InventoryTable from "../../components/InventoryTable";
 
 function Profile() {
+  // Access current user data from Redux store
   const { currentUser } = useSelector((state) => state.users);
+
   return (
     <div>
       <Tabs>
+        {/* Conditionally render tabs based on user type */}
         {currentUser.userType === "organization" && (
           <>
             <Tabs.TabPane tab="Inventory" key="1">
-              <Inventory />
+              <Inventory /> {/* Render Inventory component */}
             </Tabs.TabPane>
             <Tabs.TabPane tab="Donars" key="2">
-              <Donars />
+              <Donars /> {/* Render Donars component */}
             </Tabs.TabPane>
             <Tabs.TabPane tab="Hospitals" key="3">
-              <Hospitals />
+              <Hospitals /> {/* Render Hospitals component */}
             </Tabs.TabPane>
           </>
         )}
@@ -29,33 +32,37 @@ function Profile() {
         {currentUser.userType === "donar" && (
           <>
             <Tabs.TabPane tab="Donations" key="4">
+              {/* Render InventoryTable with filters */}
               <InventoryTable
                 filters={{
-                  inventoryType: "in",
-                  donar: currentUser._id,
+                  inventoryType: "in", // Filter for incoming inventory
+                  donar: currentUser._id, // Filter for donar's donations
                 }}
-                userType="donar"
+                userType="donar" // Pass userType for specific views
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Organizations" key="5">
-              <Organizations userType="donar" />
+              <Organizations userType="donar" />{" "}
+              {/* Render Organizations with userType */}
             </Tabs.TabPane>
           </>
         )}
- 
+
         {currentUser.userType === "hospital" && (
           <>
             <Tabs.TabPane tab="Consumptions" key="6">
+              {/* Render InventoryTable with filters */}
               <InventoryTable
                 filters={{
-                  inventoryType: "out",
-                  hospital: currentUser._id,
+                  inventoryType: "out", // Filter for outgoing inventory
+                  hospital: currentUser._id, // Filter for hospital's consumptions
                 }}
-                userType="hospital"
+                userType="hospital" // Pass userType for specific views
               />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Organizations" key="7">
-              <Organizations userType="hospital" />
+              <Organizations userType="hospital" />{" "}
+              {/* Render Organizations with userType */}
             </Tabs.TabPane>
           </>
         )}

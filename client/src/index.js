@@ -7,21 +7,28 @@ import { ConfigProvider } from "antd";
 import { Provider } from "react-redux";
 import store from './redux/store';
 
-
+// Create a root element to render the React application
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Render the application with Redux integration and Ant Design configuration
 root.render(
- <Provider store={store}>
-   <ConfigProvider
+  <Provider store={store}>
+    {/* Wrap the application with Redux Provider to make the store accessible */}
+    <ConfigProvider
       theme={{
+        // Configure Ant Design theme with custom colors
         token: {
-          colorPrimary: "#3F497F",
-          colorBorder: "#802828",
+          colorPrimary: "#3F497F", // Primary color
+          colorBorder: "#802828", // Border color
         },
       }}
     >
-    <App />
+      {/* Wrap the application with Ant Design ConfigProvider to apply the theme */}
+      <App />
+      {/* Render the main App component */}
     </ConfigProvider>
-    </Provider>
-
+  </Provider>
 );
+
+// Report web vitals for performance analysis
 reportWebVitals();

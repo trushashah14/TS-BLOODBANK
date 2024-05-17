@@ -7,22 +7,26 @@ import { SetLoading } from "../../redux/loadersSlice";
 import { getAntdInputValidation } from "../../utils/helpers";
 
 function Login() {
+  // State for user type (donar, hospital, or organization)
   const [type, setType] = React.useState("donar");
+
+  // Navigation and dispatch functions
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onFinish = async  (values) => {
-    
+
+  // Handles form submission
+  const onFinish = async (values) => {
     try {
-      dispatch(SetLoading(true));
+      dispatch(SetLoading(true)); // Set loading state to true
       const response = await LoginUser({
-        ...values,
-        userType: type,
+        ...values, // Spread form values
+        userType: type, // Add user type from state
       });
-      dispatch(SetLoading(false));
+      dispatch(SetLoading(false)); // Set loading state to false
       if (response.success) {
         message.success(response.message);
-        localStorage.setItem("token", response.data);
-        navigate("/");
+        localStorage.setItem("token", response.data); // Store token
+        navigate("/"); // Redirect to home on successful login
       } else {
         throw new Error(response.message);
       }
@@ -32,6 +36,7 @@ function Login() {
     }
   };
 
+  // Check for existing token on component mount and redirect if logged in
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
@@ -45,25 +50,22 @@ function Login() {
         className="bg-white rounded shadow grid p-5 gap-5 w-1/3"
         onFinish={onFinish}
       >
-        <h1 className=" uppercase text-2xl">
+        <h1 className="uppercase text-2xl">
           <span className="text-primary">{type.toUpperCase()} - LOGIN</span>
           <hr />
         </h1>
 
-        <Radio.Group
-          onChange={(e) => setType(e.target.value)}
-          value={type}
-          className=""
-        >
+        {/* Radio buttons for user type selection */}
+        <Radio.Group onChange={(e) => setType(e.target.value)} value={type}>
           <Radio value="donar">Donar</Radio>
           <Radio value="hospital">Hospital</Radio>
           <Radio value="organization">Organization</Radio>
         </Radio.Group>
 
-        <Form.Item label="Email" name="email" rules={getAntdInputValidation()} >
+        {/* Email and password form fields with validation */}
+        <Form.Item label="Email" name="email" rules={getAntdInputValidation()}>
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Password"
           name="password"
@@ -76,8 +78,9 @@ function Login() {
           Login
         </Button>
 
+        {/* Link to registration page */}
         <Link to="/register" className=" text-center text-gray-700 underline">
-          Don't have an account ? Register
+          Don't have an account? Register
         </Link>
       </Form>
     </div>

@@ -4,12 +4,13 @@ import React from "react";
 import { getAntdInputValidation } from "../../utils/helpers";
 
 function OrgHospitalForm({ type }) {
+  // Render form fields based on the provided type (hospital or organization)
   return (
     <>
       <Form.Item
-        label={type === "hospital" ? "Hospital Name" : "Organization Name"}
-        name={type === "hospital" ? "hospitalName" : "organizationName"}
-        rules={getAntdInputValidation()}
+        label={type === "hospital" ? "Hospital Name" : "Organization Name"} // Dynamic label based on type
+        name={type === "hospital" ? "hospitalName" : "organizationName"} // Dynamic field name based on type
+        rules={getAntdInputValidation()} // Set validation rules from helper function
       >
         <Input />
       </Form.Item>
@@ -19,7 +20,7 @@ function OrgHospitalForm({ type }) {
       <Form.Item name="email" label="Email" rules={getAntdInputValidation()}>
         <Input />
       </Form.Item>
-      <Form.Item name="phone" label="Phone" rules={getAntdInputValidation()} >
+      <Form.Item name="phone" label="Phone" rules={getAntdInputValidation()}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -39,7 +40,7 @@ function OrgHospitalForm({ type }) {
       <Form.Item
         name="address"
         label="Address"
-        className="col-span-2"
+        className="col-span-2" // Set grid layout for address field
         rules={getAntdInputValidation()}
       >
         <TextArea />

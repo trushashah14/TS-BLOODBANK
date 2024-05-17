@@ -8,27 +8,30 @@ import { SetLoading } from "../../redux/loadersSlice";
 import { getAntdInputValidation } from "../../utils/helpers";
 
 function Register() {
+  // State for user type (donar, hospital, organization)
   const [type, setType] = React.useState("donar");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook for navigation
 
   const dispatch = useDispatch();
+
+  // Handle form submission
   const onFinish = async (values) => {
     try {
-      dispatch(SetLoading(true));
-      const response = await RegisterUser({ ...values, userType: type });
+      dispatch(SetLoading(true)); // Set loading state to true
+      const response = await RegisterUser({ ...values, userType: type }); // Register user with type
       if (response.success) {
         message.success(response.message);
-        navigate("/login");
-      dispatch(SetLoading(false));
-
+        navigate("/login"); // Redirect to login on success
       } else {
         throw new Error(response.message);
       }
     } catch (error) {
-      dispatch(SetLoading(false));
+      dispatch(SetLoading(false)); // Set loading state to false
       message.error(error.message);
     }
   };
+
+  // Check for existing token on component mount and redirect if logged in
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
@@ -49,6 +52,7 @@ function Register() {
           <hr />
         </h1>
 
+        {/* Radio group to select user type */}
         <Radio.Group
           onChange={(e) => setType(e.target.value)}
           value={type}
@@ -59,48 +63,30 @@ function Register() {
           <Radio value="organization">Organization</Radio>
         </Radio.Group>
 
-        {type === "donar" && (
+        {/* Conditionally render form fields based on user type */}
+        {type === "donar" && ( // Donar form fields
           <>
-            {" "}
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={getAntdInputValidation()}
-            >
+            <Form.Item label="Name" name="name" rules={getAntdInputValidation()}>
               <Input />
             </Form.Item>
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={getAntdInputValidation()}
-            >
+            <Form.Item label="Email" name="email" rules={getAntdInputValidation()}>
               <Input />
             </Form.Item>
-            <Form.Item
-              label="Phone"
-              name="phone"
-              rules={getAntdInputValidation()}
-            >
+            <Form.Item label="Phone" name="phone" rules={getAntdInputValidation()}>
               <Input />
             </Form.Item>
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={getAntdInputValidation()}
-            >
+            <Form.Item label="Password" name="password" rules={getAntdInputValidation()}>
               <Input type="password" />
             </Form.Item>
           </>
         )}
 
-        {type !== "donar" && <OrgHospitalForm type={type} />}
+        {type !== "donar" && <OrgHospitalForm type={type} />} {/* Render Org/Hospital form component */}
+
         <Button type="primary" block className="col-span-2" htmlType="submit">
           Register
         </Button>
-        <Link
-          to="/login"
-          className="col-span-2 text-center text-gray-700 underline"
-        >
+        <Link to="/login" className="col-span-2 text-center text-gray-700 underline">
           Already have an account? Login
         </Link>
       </Form>

@@ -5,15 +5,19 @@ import { Table, message } from "antd";
 import { GetAllHospitalsOfAnOrganization } from "../../../apicalls/users";
 import { getDateFormat } from "../../../utils/helpers";
 
-function Donars() {
+function Hospitals() { 
+  // State for hospitals data
   const [data, setData] = React.useState([]);
+
+  // Dispatch function for Redux actions
   const dispatch = useDispatch();
 
+  // Function to fetch hospitals data
   const getData = async () => {
     try {
-      dispatch(SetLoading(true));
+      dispatch(SetLoading(true)); // Set loading state to true
       const response = await GetAllHospitalsOfAnOrganization();
-      dispatch(SetLoading(false));
+      dispatch(SetLoading(false)); // Set loading state to false
       if (response.success) {
         setData(response.data);
       } else {
@@ -25,6 +29,7 @@ function Donars() {
     }
   };
 
+  // Define table columns
   const columns = [
     {
       title: "Hospital Name",
@@ -39,19 +44,22 @@ function Donars() {
       dataIndex: "phone",
     },
     {
-        title: "Address",
-        dataIndex: "address",
+      title: "Address",
+      dataIndex: "address",
     },
     {
       title: "Created At",
       dataIndex: "createdAt",
-      render: (text) => getDateFormat(text),
+      render: (text) => getDateFormat(text), // Render formatted date
     },
   ];
 
+  // Fetch data on component mount
   React.useEffect(() => {
     getData();
   }, []);
+
+  // Render hospitals table
   return (
     <div>
       <Table columns={columns} dataSource={data} />
@@ -59,4 +67,4 @@ function Donars() {
   );
 }
 
-export default Donars;
+export default Hospitals;
