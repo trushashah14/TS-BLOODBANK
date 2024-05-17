@@ -55,7 +55,7 @@ function Home() {
       {currentUser.userType === "organization" && (
         <>
           {/* Blood Group Inventory Summary for Organizations */}
-          <div className="grid grid-cols-4 gap-5 mb-5 mt-2">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-cols-2 gap-5 mb-5 mt-2 ">
           {bloodGroupsData.map((bloodGroup, index) => {
               const color = colours[index];
               return (
@@ -63,11 +63,11 @@ function Home() {
                   className={`p-5 flex justify-between text-white rounded items-center`}
                   style={{ backgroundColor: color }}
                 >
-                  <h1 className="text-5xl uppercase">
+                  <h1 className="lg:text-5xl text-md sm:text-xl md:text-2xl  uppercase">
                     {bloodGroup.bloodGroup}
                   </h1>
 
-                  <div className="flex flex-col justify-between gap-2">
+                  <div className="flex flex-col justify-between gap-2 lg:text-xl text-xs  ml-3">
                     <div className="flex justify-between gap-5">
                       <span>Total In</span>
                       <span>{bloodGroup.totalIn} ML</span>
@@ -77,7 +77,7 @@ function Home() {
                       <span>{bloodGroup.totalOut} ML</span>
                     </div>
 
-                    <div className="flex justify-between 5">
+                    <div className="flex justify-between gap-5">
                       <span>Available</span>
                       <span>{bloodGroup.available} ML</span>
                     </div>
